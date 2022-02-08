@@ -63,18 +63,18 @@ export default function MoviesTable({ columns, data }) {
     );
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    function renderCell(cell) {
+    function renderCell(cell, key) {
 
         switch (cell.column.id) {
             case "ranking":
             case "title":
-                return <Td width={'500px'} alignSelf={'flex-start'} {...cell.getCellProps()} color="primary">
+                return <Td key={key} width={'500px'} alignSelf={'flex-start'} {...cell.getCellProps()} color="primary">
                     {cell.render("Cell")}
                 </Td>;
             case "year":
             case "revenue":
             default:
-                return <Td {...cell.getCellProps()} color="primary">
+                return <Td key={key} {...cell.getCellProps()} color="primary">
                     {cell.render("Cell")}
                 </Td>;
 
@@ -93,11 +93,12 @@ export default function MoviesTable({ columns, data }) {
                 <Table {...getTableProps()}>
                     {/* Table Header */}
                     <Thead>
-                        {headerGroups.map((headerGroup) => (
-                            <Tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroups.map((headerGroup, index) => (
+                            <Tr key={index} {...headerGroup.getHeaderGroupProps()}>
                                 {[
-                                    ...headerGroup.headers.map((column) => (
+                                    ...headerGroup.headers.map((column, i) => (
                                         <Th
+                                            key={i}
                                             {...column.getHeaderProps()}
                                             color="primary"
                                             opacity="50%"
@@ -113,16 +114,16 @@ export default function MoviesTable({ columns, data }) {
 
                     {/* Table Data */}
                     <Tbody {...getTableBodyProps()}>
-                        {page.map((row) => {
+                        {page.map((row, index) => {
                             prepareRow(row);
 
 
 
                             return (
 
-                                <Tr _hover={{ bg: "hoverGray" }} {...row.getRowProps()}>
+                                <Tr key={index} _hover={{ bg: "hoverGray" }} {...row.getRowProps()}>
                                     {[
-                                        ...row.cells.map((cell) => renderCell(cell)),
+                                        ...row.cells.map((cell, i) => renderCell(cell, i)),
                                         <Td>
 
                                             <Button

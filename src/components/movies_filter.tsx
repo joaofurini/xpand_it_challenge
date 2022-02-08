@@ -29,7 +29,7 @@ export default function MoviesFilter({ yearsList, onFiltersApplied, onResetFilte
                 }} fontWeight={'normal'} border='1px' borderColor='gray.200' borderRadius={20} height={'30px'}>
                 <option style={{ color: 'gray' }} value="">Revenue by year</option>
                 {yearsList.map(item => {
-                    return <option style={{ color: 'gray' }} value={item}>{item}</option>
+                    return <option key={item} style={{ color: 'gray' }} value={item}>{item}</option>
                 })}
             </Select>
             <Button backgroundImage={'/images/reset_filters_icon.png'}
